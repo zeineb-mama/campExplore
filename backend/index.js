@@ -34,16 +34,16 @@ app.get("/", (req, res) => {
 });
 
 // Pour le front standard
-app.use('/front', express.static(path.join(__dirname, '../frontend/build')));
-app.get('/front/*', (req, res) => {
+app.use(express.static(path.join(__dirname, '../frontend/build')));
+app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../frontend/build', 'index.html'));
 });
 
 // Pour l'espace admin
-app.use('/admin', express.static(path.join(__dirname, '../admin/build')));
-app.get('/admin/*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../admin/build', 'index.html'));
-});
+// app.use('/admin', express.static(path.join(__dirname, '../admin/build')));
+// app.get('/admin/*', (req, res) => {
+//   res.sendFile(path.join(__dirname, '../admin/build', 'index.html'));
+// });
 
 const port = process.env.PORT || 4000;
 app.listen(port, (error) => {
