@@ -15,7 +15,7 @@ const Shop = () => {
     fetch(`${backend_url}/api/product/popularinProduct`)
       .then((res) => res.json())
       .then((data) => setPopular(data))
-    fetch('${backend_url}/api/product/newcollections')
+    fetch(`${backend_url}/api/product/newcollections`)
       .then((res) => res.json())
       .then((data) => setNewCollection(data))
   }
