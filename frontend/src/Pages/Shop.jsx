@@ -4,6 +4,7 @@ import Popular from '../Components/Popular/Popular'
 import Offers from '../Components/Offers/Offers'
 import NewCollections from '../Components/NewCollections/NewCollections'
 import NewsLetter from '../Components/NewsLetter/NewsLetter'
+import { backend_url } from '../App'
 
 const Shop = () => {
 
@@ -11,10 +12,10 @@ const Shop = () => {
   const [newcollection, setNewCollection] = useState([]);
 
   const fetchInfo = () => {
-    fetch('http://localhost:4000/api/product/popularinProduct')
+    fetch(`${backend_url}/api/product/popularinProduct`)
       .then((res) => res.json())
       .then((data) => setPopular(data))
-    fetch('http://localhost:4000/api/product/newcollections')
+    fetch('${backend_url}/api/product/newcollections')
       .then((res) => res.json())
       .then((data) => setNewCollection(data))
   }
