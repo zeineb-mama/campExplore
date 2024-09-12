@@ -6,7 +6,7 @@ const sequelize = require('./src/config/db');
 
 app.use(express.json());
 app.use(cors({
-  origin: "https://camp-explore-a1583b8ebde7.herokuapp.com"
+  origin: "*"
 }));
 
 sequelize.sync();
