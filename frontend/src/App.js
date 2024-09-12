@@ -12,7 +12,7 @@ import CheckoutSuccess from "./Components/success/checkoutSuccess";
 import AuthRoute from "./Components/AuthRoute";
 import Profile from "./Components/Profile/Profile";
 
-export const backend_url = 'https://camp-explore-a1583b8ebde7.herokuapp.com/';
+export const backend_url = 'https://camp-explore-a1583b8ebde7.herokuapp.com';
 export const currency = '€';
 
 function App() {
