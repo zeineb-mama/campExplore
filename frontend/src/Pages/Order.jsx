@@ -26,7 +26,7 @@ const Order = () => {
     const fetchUserDetails = async () => {
         try {
             const token = localStorage.getItem('auth-token');
-            const response = await axios.get('http://localhost:4000/api/auth/user', {
+            const response = await axios.get(`${backend_url}/api/auth/user`, {
                 headers: { 'auth-token': token }
             });
             return response.data.user;

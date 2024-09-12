@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 
 const PayButton = ({ cartItems, userId }) => {
-    const backend_url = 'http://localhost:4000/api'; // Replace with your backend URL
+    const backend_url = `${backend_url}/api`
 
     const handleCheckout = async () => {
         if (!Array.isArray(cartItems)) {

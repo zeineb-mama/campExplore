@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./CSS/LoginSignup.css";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from 'axios';
+import { backend_url } from "../App";
 
 const LoginSignup = () => {
   const [state, setState] = useState("Login");
@@ -16,7 +17,7 @@ const LoginSignup = () => {
   const fetchUserDetails = async () => {
     try {
       const token = localStorage.getItem('auth-token');
-      const response = await axios.get('http://localhost:4000/api/auth/user', {
+      const response = await axios.get(`${backend_url}/api/auth/user`, {
         headers: { 'auth-token': token }
       });
       return response.data.user;
@@ -41,7 +42,7 @@ const LoginSignup = () => {
 
   const login = async () => {
     try {
-      const response = await axios.post('http://localhost:4000/api/auth/login', formData);
+      const response = await axios.post(`${backend_url}/api/auth/login`, formData);
       if (response.data.role === 'admin') {
         alert('Please try with correct email/password');
       } else {
@@ -55,7 +56,7 @@ const LoginSignup = () => {
 
   const signup = async () => {
     try {
-      await axios.post('http://localhost:4000/api/auth/signup', formData);
+      await axios.post(`${backend_url}/api/auth/signup`, formData);
       window.location.replace('/login');
     } catch (error) {
       console.error(error);
