@@ -99,14 +99,20 @@ exports.getUserDetails = async (req, res) => {
         const verified = jwt.verify(token, process.env.SECRET_KEY);
         req.user = verified.user;
 
+        console.log('Verified User:', req.user); // Log the verified user
+
         const user = await User.findOne({ where: { id: req.user.id } });
         if (!user) return res.status(404).json({ error: "User not found" });
 
+        console.log('Fetched User:', user); // Log the fetched user from DB
+
         res.json({ success: true, user });
     } catch (err) {
+        console.error('Token verification failed:', err);
         res.status(400).json({ error: "Invalid Token" });
     }
 };
+
 
 exports.getAllUser = async (req, res) => {
     const users = await User.findAll();

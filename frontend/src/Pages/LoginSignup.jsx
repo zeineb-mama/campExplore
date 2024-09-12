@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./CSS/LoginSignup.css";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from 'axios';
-import { backend_url } from "../App";
+import { backend_url } from '../App'
 
 const LoginSignup = () => {
   const [state, setState] = useState("Login");
@@ -17,15 +17,27 @@ const LoginSignup = () => {
   const fetchUserDetails = async () => {
     try {
       const token = localStorage.getItem('auth-token');
+      if (!token) throw new Error('Token not found');
+
       const response = await axios.get(`${backend_url}/api/auth/user`, {
-        headers: { 'auth-token': token }
+        headers: { 'auth-token': token },
       });
+
+      if (response.status !== 200) {
+        throw new Error(`Error fetching user: ${response.statusText}`);
+      }
+
+      if (!response.data.user) {
+        throw new Error('Invalid user data');
+      }
+
       return response.data.user;
     } catch (error) {
       console.error('Failed to fetch user details:', error);
       throw error;
     }
   };
+
   const handleRedirect = async () => {
     try {
       const user = await fetchUserDetails();
