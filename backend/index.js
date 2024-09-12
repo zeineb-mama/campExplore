@@ -5,7 +5,7 @@ const cors = require("cors");
 const sequelize = require('./src/config/db');
 
 app.use(express.json());
-app.use(cors({ origin: 'https://your-frontend-domain.com' }));
+app.use(cors({ origin: '*' }));
 
 
 sequelize.sync();
