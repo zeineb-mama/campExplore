@@ -15,14 +15,26 @@ const LoginSignup = () => {
   }
 
   const fetchUserDetails = async () => {
-    const token = localStorage.getItem('auth-token');
-    console.log('Token being sent:', token); // Check if the token is correct
-    const response = await axios.get(`${backend_url}/api/auth/user`, {
-      headers: { 'auth-token': token }
-    });
-    console.log(response.data.user); 
-    return response.data.user;
+    try {
+      const token = localStorage.getItem('auth-token');
+      const response = await axios.get(`${backend_url}/api/auth/user`, {
+        headers: { 'auth-token': token },
+      });
+  
+      // Check if the response content type is JSON
+      if (response.headers['content-type'] && response.headers['content-type'].includes('application/json')) {
+        const user = response.data.user;
+        if (!user) throw new Error('Invalid user data');
+        return user;
+      } else {
+        throw new Error('Received HTML response instead of JSON');
+      }
+    } catch (error) {
+      console.error('Failed to fetch user details:', error);
+      throw error;
+    }
   };
+  
 
   const handleRedirect = async () => {
     try {
