@@ -5,13 +5,17 @@ const cors = require("cors");
 const sequelize = require('./src/config/db');
 
 app.use(express.json());
-app.use(cors({ origin: '*' }));
-
+app.use(cors({
+  origin: "*"
+}));
 
 sequelize.sync();
 
 // Pour le front standard
 app.use(express.static(path.join(__dirname, '../frontend/build')));
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../frontend/build', 'index.html'));
+});
 
 app.use('/images', express.static(path.join(__dirname, 'upload/images')));
 
@@ -31,9 +35,6 @@ app.use('/api/order/', orderRoutes);
 app.use('/api/stripe/', stripeRoute);
 app.use('/api/statistic/', statistic);
 
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../frontend/build', 'index.html'));
-});
 app.get("/", (req, res) => {
   res.send("Root");
 });
