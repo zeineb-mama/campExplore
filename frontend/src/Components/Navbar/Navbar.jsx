@@ -71,7 +71,7 @@ const Navbar = () => {
             <MenuItem disabled value="">
               <em>Categories</em>
             </MenuItem>
-            {categories.map((category) => (
+            {Array.isArray(categories) && categories.map((category) => (
               <MenuItem
                 key={category.id}
                 value={category.name}
@@ -98,7 +98,7 @@ const Navbar = () => {
                     <strong> {user?.name}</strong>
                   </p>
                   {/* <br /> */}
-                  <Link style={{ display: 'flex', alignItems: 'center', gap: '20px', marginTop:'20px' }} className="profile-link" to={'/orders'}>
+                  <Link style={{ display: 'flex', alignItems: 'center', gap: '20px', marginTop: '20px' }} className="profile-link" to={'/orders'}>
                     <img src="https://cdn-icons-png.freepik.com/256/16767/16767941.png?ga=GA1.1.426852349.1711671118&semt=ais_hybrid" alt="" />
                     <p>
                       Orders
