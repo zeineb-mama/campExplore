@@ -35,7 +35,7 @@ exports.newCollections = async (req, res) => {
 
 
 exports.popularProduct = async (req, res) => {
-    const category = await Category.findOne({ where: { name: 'vetements' } });
+    const category = await Category.findOne({ where: { name: 'equipements' } });
     let products = await Product.findAll({ where: { categoryId: category.id } });
     let arr = products.splice(0, 4);
     // console.log("Popular In equipements");
