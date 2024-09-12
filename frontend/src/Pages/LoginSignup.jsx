@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./CSS/LoginSignup.css";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from 'axios';
-import { backend_url } from '../App'
+import { backend_url } from '../App';
 
 const LoginSignup = () => {
   const [state, setState] = useState("Login");
@@ -15,13 +15,26 @@ const LoginSignup = () => {
   }
 
   const fetchUserDetails = async () => {
-    const token = localStorage.getItem('auth-token');
-    console.log('Token being sent:', token); // Check if the token is correct
-    const response = await axios.get(`${backend_url}/api/auth/user`, {
-      headers: { 'auth-token': token }
-    });
-    return response.data.user
+    try {
+      const token = localStorage.getItem('auth-token');
+      const response = await axios.get('https://camp-explore-a1583b8ebde7.herokuapp.com/api/auth/user', {
+        headers: { 'auth-token': token },
+      });
+
+      // Check if response is JSON
+      if (response.headers['content-type'] && response.headers['content-type'].includes('application/json')) {
+        const user = response.data.user;
+        if (!user) throw new Error('Invalid user data');
+        return user;
+      } else {
+        throw new Error('Received HTML response instead of JSON');
+      }
+    } catch (error) {
+      console.error('Failed to fetch user details:', error);
+      throw error;
+    }
   };
+
 
   const handleRedirect = async () => {
     try {
@@ -39,7 +52,7 @@ const LoginSignup = () => {
 
   const login = async () => {
     try {
-      const response = await axios.post(`${backend_url}/api/auth/login`, formData);
+      const response = await axios.post('https://camp-explore-a1583b8ebde7.herokuapp.com/api/auth/login', formData);
       if (response.data.role === 'admin') {
         alert('Please try with correct email/password');
       } else {
@@ -53,7 +66,7 @@ const LoginSignup = () => {
 
   const signup = async () => {
     try {
-      await axios.post(`${backend_url}/api/auth/signup`, formData);
+      await axios.post('https://camp-explore-a1583b8ebde7.herokuapp.com/api/auth/signup', formData);
       window.location.replace('/login');
     } catch (error) {
       console.error(error);
