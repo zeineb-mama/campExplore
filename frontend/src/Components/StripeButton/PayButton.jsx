@@ -1,8 +1,9 @@
 import React from 'react';
 import axios from 'axios';
+import { backend_url } from '../../App'
 
 const PayButton = ({ cartItems, userId }) => {
-    const backend_url = `${backend_url}/api`
+    const backend_api = `${backend_url}/api`
 
     const handleCheckout = async () => {
         if (!Array.isArray(cartItems)) {
@@ -11,7 +12,7 @@ const PayButton = ({ cartItems, userId }) => {
         }
 
         try {
-            const response = await axios.post(`${backend_url}/stripe/create-checkout-session`, {
+            const response = await axios.post(`${backend_api}/stripe/create-checkout-session`, {
                 cartItems,
                 userId,
             });
