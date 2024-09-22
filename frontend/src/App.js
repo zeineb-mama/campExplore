@@ -17,11 +17,11 @@ export const currency = '€';
 
 function App() {
   return (
-    <div>
+    <>
       <Router>
         <Navbar />
         <Routes>
-          <Route path="/" element={<Shop gender="all" />} />
+          <Route path="/" element={<Shop />} />
           <Route path="/category/:categoryName" element={<ShopCategory />} />
           <Route path='/product/:productId' element={<Product />} />
           <Route path="/cart/:id" element={<AuthRoute><Cart /></AuthRoute>} />
@@ -40,7 +40,7 @@ function App() {
         </Routes>
         <Footer />
       </Router>
-    </div>
+    </>
   );
 }
 

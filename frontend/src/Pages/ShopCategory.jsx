@@ -26,9 +26,9 @@ const ShopCategory = () => {
 
   useEffect(() => {
     fetchInfo();
-    if (categoryName === "vetements") {
+    if (categoryName === "Clothes") {
       setBanner(women_banner);
-    } else if (categoryName === "equipements") {
+    } else if (categoryName === "Equipments") {
       setBanner(men_banner);
     }
   }, [categoryName]);
